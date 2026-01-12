@@ -11,9 +11,9 @@
     <div>There are no tasks!</div>
   @endif -->
   @forelse ($tasks as $task)
-    <li>{{ $task->title }}</li>
+    <div>{{ $task->title }}</div>
   @empty
-      <p>No Task To-Do!</p>
+      <div>No Task To-Do!</div>
   @endforelse
 </div>
 
