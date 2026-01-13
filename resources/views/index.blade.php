@@ -1,8 +1,8 @@
-<h1>
-  Hello I'm a blade template! 
-</h1>
+@extends('layouts.app')
 
-<div>
+@section('title', 'Task List')
+
+@section('content')
   <!-- @if (count($tasks))
     @foreach ($tasks as $task)
       <div>{{ $task -> title }}</div>
@@ -11,9 +11,10 @@
     <div>There are no tasks!</div>
   @endif -->
   @forelse ($tasks as $task)
-    <div>{{ $task->title }}</div>
+  <div>
+    <a href="{{ route('tasks.show', ['id' => $task->id]) }}">{{ $task->title }}</a>
+  </div>
   @empty
       <div>No Task To-Do!</div>
   @endforelse
-</div>
-
+@endsection
