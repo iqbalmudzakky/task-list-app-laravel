@@ -1,4 +1,4 @@
-@extends('layouts.app')
+p@extends('layouts.app')
 
 @section('title', $task->title)
 
