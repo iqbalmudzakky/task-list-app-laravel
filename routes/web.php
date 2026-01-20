@@ -9,26 +9,26 @@ use Illuminate\Support\Facades\Route;
 // $tasks = []; // Uncomment to test "no tasks" scenario
 
 Route::get('/', function () {
-  return redirect() -> route('tasks.index');
+  return redirect()->route('tasks.index');
 });
 
-Route::get('/tasks', function ()  {
+Route::get('/tasks', function () {
   return view('index', [
     // 'tasks' => ModelsTask::latest()->where('completed', true)->get() // Fetch tasks from the database by the latest created first and only completed ones
-    'tasks'=> TaskModel::latest()->get()
+    'tasks' => TaskModel::latest()->get()
   ]);
-}) -> name('tasks.index');
+})->name('tasks.index');
 
-Route::view('/tasks/create', 'create') -> name('tasks.create');
+Route::view('/tasks/create', 'create')->name('tasks.create');
 
-Route::get('/tasks/{id}', function ($id)  {
+Route::get('/tasks/{id}', function ($id) {
   return view('show', [
-    'task' => TaskModel::findOrFail( $id )
+    'task' => TaskModel::findOrFail($id)
   ]);
-}) -> name('tasks.show');
+})->name('tasks.show');
 
-Route::post('/tasks', function (Request $request)  {
-  // dd( $request->all() ); // dd = dump and die, seperti console.log + stop execution
+Route::post('/tasks', function (Request $request) {
+  // dd($request->all()); // dd = dump and die, seperti console.log + stop execution
   $data = $request->validate([
     'title' => 'required|max:255',
     'description' => 'required',
@@ -36,20 +36,20 @@ Route::post('/tasks', function (Request $request)  {
   ]);
 
   $task = new TaskModel;
-  $task -> title = $data['title'];
-  $task -> description = $data['description'];
-  $task -> long_description = $data['long_description'];
-  $task -> save();
+  $task->title = $data['title'];
+  $task->description = $data['description'];
+  $task->long_description = $data['long_description'];
+  $task->save();
 
-  return redirect() -> route('tasks.show', ['id' => $task->id]);
-}) -> name('tasks.store');
+  return redirect()->route('tasks.show', ['id' => $task->id])->with('success', 'Task created successfully!');
+})->name('tasks.store');
 
 // Route::get('/xxx', function() {
 //   return 'Hello from the other side';
-// }) -> name('hello');
+// })->name('hello');
 
 // Route::get('/hallo', function() {
-//   return redirect() -> route('hello');
+//   return redirect()->route('hello');
 // });
 
 // Route::get('/greet/{name}', function ($name) {

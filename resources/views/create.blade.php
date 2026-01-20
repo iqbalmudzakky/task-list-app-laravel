@@ -1,28 +1,54 @@
 @extends('layouts.app')
-  
+
+@section('styles')
+<style>
+  form div {
+    margin-bottom: 1rem;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    background-color: #ffe6e6;
+    padding: 0.5rem;
+  }
+</style>
+@endsection
+
 @section('title', 'Create New Task')
 
 @section('content')
-  <div>
-    {{ $errors }}
-    <form action="{{ route('tasks.store') }}" method="post">
-      @csrf
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title">
-      </div>
+<div>
+  <form action="{{ route('tasks.store') }}" method="post">
+    @csrf
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="{{ old('title') }}">
+    </div>
+    @error('title')
+    <div class="error-message">{{ $message }}</div>
+    @enderror
 
-      <div>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="5"></textarea>
-      </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" rows="5">{{ old('description') }}</textarea>
+    </div>
+    @error('description')
+    <div class="error-message">{{ $message }}</div>
+    @enderror
 
-      <div>
-        <label for="long_description">Long Description:</label>
-        <textarea id="long_description" name="long_description" rows="10"></textarea>
-      </div>
-      
-      <button type="submit">Create Task</button>
-    </form>
-  </div>
+
+    <div>
+      <label for="long_description">Long Description:</label>
+      <textarea id="long_description" name="long_description" rows="10">{{ old('long_description') }}</textarea>
+    </div>
+    @error('long_description')
+    <div class="error-message">{{ $message }}</div>
+    @enderror
+
+
+    <button type="submit">Create Task</button>
+  </form>
+</div>
 @endsection
