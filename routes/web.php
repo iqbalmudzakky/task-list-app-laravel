@@ -21,6 +21,12 @@ Route::get('/tasks', function () {
 
 Route::view('/tasks/create', 'create')->name('tasks.create');
 
+Route::get('/tasks/{id}/edit', function ($id) {
+  return view('edit', [
+    'task' => TaskModel::findOrFail($id)
+  ]);
+})->name('tasks.edit');
+
 Route::get('/tasks/{id}', function ($id) {
   return view('show', [
     'task' => TaskModel::findOrFail($id)
@@ -43,6 +49,23 @@ Route::post('/tasks', function (Request $request) {
 
   return redirect()->route('tasks.show', ['id' => $task->id])->with('success', 'Task created successfully!');
 })->name('tasks.store');
+
+Route::put('/tasks/{id}', function (Request $request, $id) {
+  // dd($request->all()); // dd = dump and die, seperti console.log + stop execution
+  $data = $request->validate([
+    'title' => 'required|max:255',
+    'description' => 'required',
+    'long_description' => 'required',
+  ]);
+
+  $task = TaskModel::findOrFail($id);
+  $task->title = $data['title'];
+  $task->description = $data['description'];
+  $task->long_description = $data['long_description'];
+  $task->save();
+
+  return redirect()->route('tasks.show', ['id' => $task->id])->with('success', 'Task created successfully!');
+})->name('tasks.update');
 
 // Route::get('/xxx', function() {
 //   return 'Hello from the other side';
