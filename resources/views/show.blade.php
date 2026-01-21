@@ -27,7 +27,7 @@
 <p>{{ $task->completed ? 'Completed' : 'Not Completed' }}</p>
 
 <div class="actions">
-  <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit Task</a>
+  <a href="{{ route('tasks.edit', ['task' => $task->id]) }}">Edit Task</a>
   <a href="{{ route('tasks.index') }}">Back to Tasks</a>
 </div>
 
