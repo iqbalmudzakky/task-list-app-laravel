@@ -29,6 +29,11 @@
 <div class="actions">
   <a href="{{ route('tasks.edit', ['task' => $task->id]) }}">Edit Task</a>
   <a href="{{ route('tasks.index') }}">Back to Tasks</a>
+  <form action="{{ route('tasks.destroy', ['task' => $task->id]) }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" onclick="return confirm('Are you sure you want to delete this task?')">Delete Task</button>
+  </form>
 </div>
 
 @endsection
