@@ -67,7 +67,7 @@
   @yield('styles')
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+<body class="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
   <div class="container mx-auto px-4 py-8 lg:py-12 max-w-4xl">
 
     <!-- Header -->
